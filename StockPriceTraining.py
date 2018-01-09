@@ -138,7 +138,7 @@ def Training(input_num,hidden_1_num,hidden_2_num,output_num,test_size,np_data_x,
     
     loss = tf.reduce_mean(tf.square(y - y_))
     #optimizer = tf.train.GradientDescentOptimizer(0.0001)
-    optimizer = tf.train.AdamOptimizer(0.01)
+    optimizer = tf.train.AdamOptimizer()
     train = optimizer.minimize(loss)
     
     init = tf.initialize_all_variables()
@@ -236,5 +236,5 @@ np_data_x = MakeTrainingData_x(pd_load_data)
 #print(np_data_x.shape)
 np_data_y = MakeTrainingData_y(pd_load_data)
 #print(np_data_y.shape)
-Training(12,int(args[1]),int(args[2]),2,0.1,np_data_x,np_data_y,20000,0.5)
+Training(12,int(args[1]),int(args[2]),2,0.1,np_data_x,np_data_y,25000,0.5)
 #Training(12,30,30,2,0.1,np_data_x,np_data_y,15000,0.8)

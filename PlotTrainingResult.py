@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-TRAINING = 10
-TRAINING_TIMES = 20
+TRAINING = 7
+TRAINING_TIMES = 25
 
 fig = plt.figure()
 
@@ -70,4 +70,4 @@ plt.title("test_prof")
 plt.xlim(1,)
 plt.grid()
 
-plt.savefig("graph.png")
+plt.savefig("ResultPaticular.png")
