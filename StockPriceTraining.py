@@ -42,8 +42,8 @@ def LoadData(tarm):
     pd_FTSE = pdr.DataReader('^FTSE', 'yahoo', start, end)
     pd_FTSE = pd_FTSE[['Open','High','Low','Close']]
     
-    #pd_data = pd.concat([pd_CNY, pd_JPY, pd_GBP, pd_EUR, pd_SP500, pd_SSE, pd_N225, pd_GDAXI, pd_FTSE], axis=1, keys = ['CNY','JPY','GBP','EUR','SP500','SEE','N225','GDAXI','FTSE'])
-    pd_data = pd.concat([pd_JPY, pd_SP500, pd_N225], axis=1, keys = ['JPY','SP500','N225'])
+    pd_data = pd.concat([pd_CNY, pd_JPY, pd_GBP, pd_EUR, pd_SP500, pd_SSE, pd_N225, pd_GDAXI, pd_FTSE], axis=1, keys = ['CNY','JPY','GBP','EUR','SP500','SEE','N225','GDAXI','FTSE'])
+    #pd_data = pd.concat([pd_JPY, pd_SP500, pd_N225], axis=1, keys = ['JPY','SP500','N225'])
     #pd_data.to_csv('StockDataRaw.csv')
     #print(pd_data['JPY'][['Open','Close']])
     #print(pd_data.tail(10))
@@ -138,7 +138,7 @@ def Training(input_num,hidden_1_num,hidden_2_num,output_num,test_size,np_data_x,
     
     loss = tf.reduce_mean(tf.square(y - y_))
     #optimizer = tf.train.GradientDescentOptimizer(0.0001)
-    optimizer = tf.train.AdamOptimizer()
+    optimizer = tf.train.AdamOptimizer(0.005)
     train = optimizer.minimize(loss)
     
     init = tf.initialize_all_variables()
@@ -236,5 +236,5 @@ np_data_x = MakeTrainingData_x(pd_load_data)
 #print(np_data_x.shape)
 np_data_y = MakeTrainingData_y(pd_load_data)
 #print(np_data_y.shape)
-Training(12,int(args[1]),int(args[2]),2,0.1,np_data_x,np_data_y,25000,0.5)
+Training(36,int(args[1]),int(args[2]),2,0.1,np_data_x,np_data_y,50000,0.3)
 #Training(12,30,30,2,0.1,np_data_x,np_data_y,15000,0.8)
