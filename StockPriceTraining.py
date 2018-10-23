@@ -80,13 +80,15 @@ def MakeTrainingData_y(pd_data):
     
     return np_data_y
 
-def Training(input_num,hidden_1_num,hidden_2_num,output_num,test_size,np_data_x,np_data_y,training_times,drop_out):
+def Training(input_num,hidden_1_num,hidden_2_num,hidden_3_num,output_num,test_size,np_data_x,np_data_y,training_times,drop_out):
     INPUT = input_num
     #print(INPUT)
     HIDDEN_1 = hidden_1_num
     #print(HIDDEN_1)
     HIDDEN_2 = hidden_2_num
     #print(HIDDEN_2)
+    HIDDEN_3 = hidden_3_num
+    
     OUTPUT = output_num
     #print(OUTPUT)
     TEST_SIZE = test_size
@@ -127,13 +129,18 @@ def Training(input_num,hidden_1_num,hidden_2_num,output_num,test_size,np_data_x,
     b1 = tf.Variable(tf.zeros([HIDDEN_1]))
     w2 = tf.Variable(tf.random_normal([HIDDEN_1, HIDDEN_2]))
     b2 = tf.Variable(tf.zeros([HIDDEN_2]))
-    wy = tf.Variable(tf.random_normal([HIDDEN_2, OUTPUT]))
+    w3 = tf.Variable(tf.random_normal([HIDDEN_2, HIDDEN_3]))
+    b3 = tf.Variable(tf.zeros([HIDDEN_3]))
+    wy = tf.Variable(tf.random_normal([HIDDEN_3, OUTPUT]))
     by = tf.Variable(tf.zeros([OUTPUT]))
+    
     h1 = tf.nn.relu(tf.matmul(x, w1) + b1)
     h1 = tf.nn.dropout(h1,DROP_OUT)
     h2 = tf.nn.relu(tf.matmul(h1, w2) + b2)
     h2 = tf.nn.dropout(h2,DROP_OUT)
-    y = tf.matmul(h2, wy) + by
+    h3 = tf.nn.relu(tf.matmul(h2, w3) + b3)
+    h3 = tf.nn.dropout(h3,DROP_OUT)
+    y  = tf.matmul(h3, wy) + by
     y_ = tf.placeholder(tf.float32, [None, OUTPUT])
     
     loss = tf.reduce_mean(tf.square(y - y_))
@@ -236,5 +243,5 @@ np_data_x = MakeTrainingData_x(pd_load_data)
 #print(np_data_x.shape)
 np_data_y = MakeTrainingData_y(pd_load_data)
 #print(np_data_y.shape)
-Training(36,int(args[1]),int(args[2]),2,0.1,np_data_x,np_data_y,50000,0.3)
+Training(36,int(args[1]),int(args[2]),int(args[3]),2,0.1,np_data_x,np_data_y,50000,0.5)
 #Training(12,30,30,2,0.1,np_data_x,np_data_y,15000,0.8)

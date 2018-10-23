@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-TRAINING = 10
+TRAINING = 7
 TRAINING_TIMES = 50
 
 np_mean_test_loss = np.zeros(TRAINING_TIMES)
